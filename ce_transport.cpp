@@ -418,13 +418,16 @@ void AudioControlEtherTransport::sendPkts() // Ethernet/UDP specific volatile in
 				// only send correct size packet
 				int len;
 				if(qqp->hdr.format_SR == OK_VBAN_AUDIO_PROTO)
-					len = (qqp->hdr.format_nbs + 1) * (qqp->hdr.format_nbc + 1) * BYTES_SAMPLE + VBAN_HDR_SIZE;
+					//len = (qqp->hdr.format_nbs + 1) * (qqp->hdr.format_nbc + 1) * BYTES_SAMPLE + VBAN_HDR_SIZE;
 					//len = sizeof(vbanPkt);
+					len = 540;
 				else
 				{
+					
 					len = qqp->samplesUsed + VBAN_HDR_SIZE;
 				}
 				
+				Serial.printf("Sending %i bytes\n", len);
 				if(udp.send(streamsOut[i].remoteIP, VBAN_UDP_PORT, pkt, len))
 				{
 					streamsOut[i].lastPktTime = millis();				

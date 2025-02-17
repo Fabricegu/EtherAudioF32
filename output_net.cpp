@@ -71,6 +71,19 @@ void AudioOutputNet::update(void)
 		block[i] = receiveReadOnly_f32(i);
 		
 	}
+	/* pour les tests*/
+
+	/**
+	// Remplir les blocs de données avec 3.14 avant de les copier dans pkt.c.contentf32
+	for (int ch = 0; ch < _outChans; ch++) {
+    if (block[ch] != nullptr) {
+        for (int s = 0; s < AUDIO_BLOCK_SAMPLES; s++) {
+            block[ch]->data[s] = 3.14f; // Remplissage des 128 échantillons
+        }
+    }
+	}
+	*/
+
 
 	queueBlocks();
 	
@@ -130,9 +143,11 @@ bool AudioOutputNet::queueBlocks(void)
 				{		
 					float32_t *bdp = 	block[i]->data;
 					*(dat + j * _outChans + i) = *(bdp + samplesProc);
+					//*(dat + j * _outChans + i) = 1.23f;
 				}
 			}
 			samplesProc++;
+			//samplesProc++;
 		}
 		//queue frame for transmit
 		//if(printMe) printSamples(pkt.c.contentf32, samplesPkt, _outChans);

@@ -37,8 +37,8 @@
 #define VBAN_MAX_DATA						1436 	// max data bytes in a std UDP datagram
 #define VBAN_MAX_SAMPLES 				(VBAN_MAX_DATA/2)		// max INT16 samples payload
 #define VBAN_STREAM_NAME_LENGTH 16
-//#define VBAN_FLAG 							'NABV'	// quick uint32_t flag-word test
-#define VBAN_FLAG 	 1
+#define VBAN_FLAG 							'NABV'	// quick uint32_t flag-word test
+//#define VBAN_FLAG 	 1
 struct vban_header { 
 	uint32_t vban = VBAN_FLAG;
 	uint8_t format_SR; 		// SR index (3 MSB) = protocol, and 5 LSB (usage varies see below). 
