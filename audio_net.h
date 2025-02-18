@@ -49,7 +49,7 @@
 // assumes 32 bit samples 56546546546
 #define MAXCHANNELS 4			// currrently only 2 channels implemented
 #define CHANS_2_PKTS	2		// for 6 or more channels, we need two VBAN output packets
-#define BYTES_SAMPLE 8		// 4 bytes per sample (2 channels)
+#define BYTES_SAMPLE 4		// 4 bytes per sample (2 channels)
 #define AUDIO_BLOCK_SAMPLES 128
 //#define BLOX_SEC 345		// 2.9mS bocks per second
 #define SAMPLES_2 (AUDIO_BLOCK_SAMPLES * BYTES_SAMPLE) // samples in a stereo stream

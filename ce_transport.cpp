@@ -420,7 +420,8 @@ void AudioControlEtherTransport::sendPkts() // Ethernet/UDP specific volatile in
 				if(qqp->hdr.format_SR == OK_VBAN_AUDIO_PROTO)
 					//len = (qqp->hdr.format_nbs + 1) * (qqp->hdr.format_nbc + 1) * BYTES_SAMPLE + VBAN_HDR_SIZE;
 					//len = sizeof(vbanPkt);
-					len = 540;
+					len = (qqp->hdr.format_nbs + 1) * (qqp->hdr.format_nbc + 1) * BYTES_SAMPLE + VBAN_HDR_SIZE;
+					//len = 540;
 				else
 				{
 					
