@@ -9,10 +9,14 @@
 #pragma once
 
 #include "Arduino.h"
-#include "AudioStream.h"
+//#include "AudioStream.h"
 #include "Audio.h"
 #include "audio_net.h"
 #include "control_ethernet.h"
+
+
+#include "AudioStream_F32.h"
+
 
 //#define IN_DEBUG
 
@@ -30,10 +34,10 @@
 
 extern  AudioControlEtherTransport etherTran; // handles all stream and subscription traffic
 
-class AudioInputNet : public AudioStream 
+class AudioInputNet : public AudioStream_F32 
 {
 public:
-	AudioInputNet(int inCh = DEFAULT_CHANNELS) : AudioStream(0, NULL) 
+	AudioInputNet(int inCh = DEFAULT_CHANNELS) : AudioStream_F32(0, NULL) 
 	{ 
 		_inChans = inCh;
 	}
@@ -66,7 +70,7 @@ private:
 	int _mySubI = -1;  		// subscription index
 
 	// internal buffers and pointers
-	audio_block_t * new_block[MAXCHANNELS];
+	audio_block_f32_t * new_block[MAXCHANNELS];
 	
 	// internal status and control 
 	bool inputBegun = false;

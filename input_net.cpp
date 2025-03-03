@@ -28,7 +28,7 @@ void AudioInputNet::begin(void)
 #ifdef MALLOC_BUFS	
 		new_block[i] = (audio_block_t*)malloc(sizeof(audio_block_t));
 #else //can't allocate() in constructor
-		new_block[i] = allocate();
+		new_block[i] = allocate_f32();
 #endif
 		if (new_block[i] == nullptr) 
 		{
@@ -43,7 +43,8 @@ void AudioInputNet::begin(void)
 			Serial.println("Input begin: Can't allocate audio buffers");				
 			break;
 		}
-		memset(new_block[i]->data, 0, AUDIO_BLOCK_SAMPLES * 2);
+		//memset(new_block[i]->data, 0, AUDIO_BLOCK_SAMPLES * 2);
+		memset(new_block[i]->data, 0, AUDIO_BLOCK_SAMPLES * 4); // attribution de 4 octest par échantillon
 	}
 	inputBegun = true;
 #ifdef IN_DEBUG
