@@ -9,6 +9,7 @@
 
 #ifndef _INPUT_NET_HPP_
 #define _INPUT_NET_HPP_
+#define IN_DEBUG
 
 #include <Arduino.h>
 #include "input_net.h"
@@ -25,22 +26,20 @@ void AudioInputNet::begin(void)
 	for (i = 0; i < _inChans; i++) 
 	{
 
-#ifdef MALLOC_BUFS	
-		new_block[i] = (audio_block_t*)malloc(sizeof(audio_block_t));
-#else //can't allocate() in constructor
+		Serial.println("Input begin: Allocating audio buffers");
+		Serial.printf("Input begin: Allocating audio buffers %i\n", i);
 		new_block[i] = allocate_f32();
-#endif
+
 		if (new_block[i] == nullptr) 
 		{
+			Serial.println("Input begin: Can't allocate audio buffers");
 			for (j=0; j < i; j++) 
 			{
-#ifdef MALLOC_BUFS
-				free(new_block[j]);
-#else
+
 				release(new_block[j]);
-#endif
+
 			}	
-			Serial.println("Input begin: Can't allocate audio buffers");				
+			//Serial.println("Input begin: Can't allocate audio buffers");				
 			break;
 		}
 		//memset(new_block[i]->data, 0, AUDIO_BLOCK_SAMPLES * 2);
@@ -132,7 +131,7 @@ void AudioInputNet::update(void)
 		{
 			for (i = 0; i < _inChans; i++)
 				if(i < channels) 
-					new_block[i]->data[j + _currentBuffer] = pkt->c.content16[(j + qUsedSamples) * channels + i]; // 16-bit samples
+					new_block[i]->data[j + _currentBuffer] = pkt->c.contentf32[(j + qUsedSamples) * channels + i]; // 16-bit samples
 				else
 					new_block[i]->data[j + _currentBuffer] = 0; // not enough incoming channels to supply all the 
 		}	
