@@ -428,7 +428,7 @@ void AudioControlEtherTransport::sendPkts() // Ethernet/UDP specific volatile in
 					len = qqp->samplesUsed + VBAN_HDR_SIZE;
 				}
 				
-				Serial.printf("Sending %i bytes\n", len);
+				//Serial.printf("Sending %i bytes\n", len);
 				if(udp.send(streamsOut[i].remoteIP, VBAN_UDP_PORT, pkt, len))
 				{
 					streamsOut[i].lastPktTime = millis();				
